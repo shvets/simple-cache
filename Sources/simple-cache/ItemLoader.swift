@@ -1,13 +1,13 @@
 import Foundation
 
-class ItemLoader<T: AnyObject>: ObservableObject {
-  @Published var item: T?
+public class ItemLoader<T: AnyObject>: ObservableObject {
+  @Published public var item: T?
 
   var url: URL
   var cache: PlainCache<T>
   var creator: (Data) -> T?
 
-  init(url: URL, cache: PlainCache<T>, creator: @escaping (Data) -> T?) {
+  public init(url: URL, cache: PlainCache<T>, creator: @escaping (Data) -> T?) {
     self.url = url
     self.cache = cache
     self.creator = creator
@@ -22,7 +22,7 @@ class ItemLoader<T: AnyObject>: ObservableObject {
     }
   }
 
-  func load() async throws {
+  public func load() async throws {
     item = cache.get(forKey: url.absoluteString)
 
     if item == nil {
@@ -30,7 +30,7 @@ class ItemLoader<T: AnyObject>: ObservableObject {
     }
   }
 
-  func loadFromUrl() async throws {
+  public func loadFromUrl() async throws {
     let urlRequest = URLRequest(url: url)
 
     let (data, _) = try await URLSession.shared.data(for: urlRequest, delegate: nil)
