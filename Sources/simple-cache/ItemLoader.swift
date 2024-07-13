@@ -1,6 +1,7 @@
 import Foundation
 
-public class ItemLoader<T: AnyObject>: ObservableObject {
+@MainActor
+open class ItemLoader<T: AnyObject>: ObservableObject {
   @Published public var item: T?
 
   var cache: PlainCache<T>
